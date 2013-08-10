@@ -5,7 +5,7 @@ pygments: true
 paginate: 8
 permalink: /:title
 
-title: Young Mar.me
+title: Young Mars.me
 url: http://mazhiyuan.github.io
 feed: /atom.xml
 author_info: <a href="http://mazhiyuan.github.io">Young Mars</a>
