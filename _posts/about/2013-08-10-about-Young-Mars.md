@@ -10,7 +10,6 @@ category: about
 > "内心文艺,思想清新,外表屌丝的普通苦逼男青年"
 
 My Keyword:
-
 <ul>
 <li>晋er@帝都</li>
 <li>bachelor@BIT</li>
@@ -20,3 +19,10 @@ My Keyword:
 <li>hadoop,hive,nosql</li>
 <li>java,shell</li>
 </ul>
+
+Contact me:
+[mail][wmail] or [weibo][wweibo]
+
+[wmail]: mailto:waitingfortime@yeah.net "my e-mail"
+[wweibo]: http://weibo.com/1977480297/  "my weibo@sina.com" 
+
