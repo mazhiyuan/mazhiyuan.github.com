@@ -4,8 +4,8 @@ title: 如何快速利用win7建立wifi
 description: 
 category: blog
 ---
-## 如何快速利用win7建立wifi
-#### *for 晴子啊*
+### for 晴子啊
+
 
 step 1：打开终端，输入命令
  
