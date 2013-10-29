@@ -10,9 +10,11 @@ category: blog
 step 1：打开终端，输入命令
  
 操作：WIN+R 输入cmd，回车，在黑漆漆的窗口输入
+
 ```bash
 netsh wlan set hostednetwork mode=allow ssid=qingzia key=qingzia
 ```
+
 ssid:无线网名称，qingzia
 
 key:无线网密码，qingzia
@@ -41,6 +43,7 @@ step 2：共享有线网络给wifi
 ![共享2](http://g.hiphotos.baidu.com/exp/w=500/sign=a5924a6115ce36d3a20483300af23a24/b90e7bec54e736d1d1093ab39b504fc2d5626977.jpg "")
 
 step 3：在终端中输入命令，回车，完成
+
 操作：WIN+R 输入cmd，回车，在黑漆漆的窗口输入
 ```bash
 netsh wlan start hostednetwork
