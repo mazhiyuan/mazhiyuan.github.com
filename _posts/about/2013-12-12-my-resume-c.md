@@ -1,13 +1,13 @@
 ---
 layout: post
-title: Zhiyuan Ma
+title: 马致远
 description: 
 category: about
 ---
 
-<center>[e-mail][mmail]:mazhiyuan1988@yeah.net
+[e-mail][mmail]:mazhiyuan1988@yeah.net
 
-[blog][mblog]:mazhiyuan.github.com</center>
+[blog][mblog]:mazhiyuan.github.com
 
 
 ##教育经历
