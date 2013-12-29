@@ -10,9 +10,6 @@ category: about
 [blog][mblog]:mazhiyuan.github.com
 
 
-##教育经历
-- 2006 - 2010 信息系统与信息管理 本科 北京理工大学
-
 ##工作经历
 ####2012.5 至今 , 算法工程师 京东商城
 ***品类搭配***
@@ -49,12 +46,17 @@ category: about
 - 基于Hadoop的朴素贝叶斯算法实现，地址：
 - mongodb的java driver二次封装，在代码中可以编写类似于mongodb shell语句那样操作数据库，地址：
 
+
+##教育经历
+- 2006 - 2010 信息系统与信息管理 本科 北京理工大学
+
 ##技能
 - 熟悉Java语言，了解Python，R
 - 熟悉Nosql，熟练使用mongodb数据库
 - 熟悉Hadoop平台，熟练编写Hive QL，Map-Reduce代码
 - 熟悉数据挖掘和机器学习基本理论，聚类，关联分析，贝叶斯分类等数据挖掘算法，实现协同过滤算法和贝叶斯分类算法
 - 扎实的数据结构和算法功底
+
 
 [mmail]: mailto:mazhiyuan1988@yeah.net "my e-mail"
 [mblog]: http://mazhiyuan.github.com  "my blog" 
