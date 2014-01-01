@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 推荐算法浅析
+title: 推荐引擎浅析
 description: 
 category: blog
 ---
