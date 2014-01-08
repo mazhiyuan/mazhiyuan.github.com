@@ -111,4 +111,23 @@ category: blog
 
 但此方法要求X是列满秩的，而且求矩阵的逆比较慢。
 
+##分类与逻辑回归
+ logistic回归本质上是线性回归，只是在特征到结果的映射中加入了一层函数映射，即先把特征线性求和，然后使用函数g(z)将最为假设函数来预测。g(z)可以将连续值映射到0和1上。
+
+logistic回归的假设函数如下，线性回归假设函数只是![lr-19.png](http://mazhiyuan.github.io/images/lr-19.png "")。
+
+![lr-20.png](http://mazhiyuan.github.io/images/lr-20.png "")
+
+logistic回归用来分类0/1问题，也就是预测结果属于0或者1的二值分类问题。这里假设了二值满足伯努利分布，也就是 
+
+![lr-21.png](http://mazhiyuan.github.io/images/lr-21.png "")
+
+当然假设它满足泊松分布、指数分布等等也可以，只是比较复杂，后面会提到线性回归的一般形式。
+
+求最大似然估计，然后求导，得到迭代公式结果为 
+
+![lr-22.png](http://mazhiyuan.github.io/images/lr-22.png "")
+
+可以看到与线性回归类似，只是![lr-23.png](http://mazhiyuan.github.io/images/lr-23.png "")换成了![lr-24.png](http://mazhiyuan.github.io/images/lr-24.png "")，而![lr-25.png](http://mazhiyuan.github.io/images/lr-25.png "")实际上就是![lr-26.png](http://mazhiyuan.github.io/images/lr-26.png "")经过g(z)映射过来的。 
+
  
