@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "关于：About"
+title: "About"
 ---
 ####Basic Info
 My name is Pan Xuewen, I'm 29, married, living in Hongshan district Wuhan city.  
