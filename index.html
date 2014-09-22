@@ -1,42 +1,44 @@
 ---
 layout: default
-javascript:
-  - /javascripts/json_search.0.9.0.js
-  - /javascripts/home.js
+title: "Zhiyuan MA's Blog"
 ---
-
-
-<div id="search_results_area">
-  <h2>Posts <span id="result_count"></span></h2>
-  <ul id="search_results" class="posts">
-  </ul>
-</div>
-
-<div id="home">
-  <h2>Posts</h2>
-  <ul class="posts">
-    {% for post in site.posts %}
-      <li>
-        <a href="{{ post.url }}">{{ post.title }}</a>
-        <p>{{ post.summary }}</p>
-      </li>
-    {% endfor %}
-  </ul>
-
-  <script type="text/javascript" charset="utf-8">
-    var posts = [
-      {% for post in site.posts %}
-        {
-          title:   unescape('{{ post.title   | strip_html | cgi_escape }}').gsub(/\+/, ' '),
-          summary: unescape('{{ post.summary | strip_html | cgi_escape }}').gsub(/\+/, ' '),
-          content: unescape('{{ post.content | strip_html | cgi_escape }}').gsub(/\+/, ' '),
-          url:     unescape('{{ post.url     | strip_html | cgi_escape }}').gsub(/\+/, ' '),
-        },
-      {% endfor %}
-    0];
-
-    posts.pop();
-  </script>
-
-  <script type="text/javascript" src="/javascripts/twitter-1.11.2.js"></script>
-</div>
+<h1 class="page-header">
+  Zhiyuan MA's Blog
+</h1>
+{% for post in paginator.posts %}
+<h2>
+  <a href="{{ post.url }}">
+    {{ post.title }}
+  </a> 
+  <div class="post-date">
+	<span class="glyphicon glyphicon-time"></span>
+	{{ post.date | date_to_string }}
+  </div>
+</h2>
+<hr>
+{{ post.excerpt }}
+	<p> <a href="{{ post.url }}"><span >More &raquo; </span></a></p>
+<hr>
+{% endfor %}
+<!-- Pager -->
+<ul class="pager">
+  {% if paginator.previous_page %} {% if paginator.previous_page == 1 %}
+  <li class="previous">
+    <a href="{{ site.url }}/">
+      &larr; Older
+    </a>
+  </li>
+  {% else %}
+  <li class="previous">
+    <a href="{{ site.url }}/page{{ paginator.previous_page }}">
+      &larr; Older
+    </a>
+  </li>
+  {% endif %} {% endif %} {% if paginator.next_page %}
+  <li class="next">
+    <a href="{{ site.url }}/page{{ paginator.next_page }}">
+      Newer &rarr;
+    </a>
+  </li>
+  {% endif %}
+</ul>
