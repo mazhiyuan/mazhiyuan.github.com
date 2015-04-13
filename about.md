@@ -2,11 +2,20 @@
 layout: default
 title: "About"
 ---
-####Basic Info
 
-####IT skills  
+<div id="about"></div>
 
-####Work Experience  
+<form id="mtxform" name="mtxform">
+	<span id="inputext" class="hidden">
+	<textarea rows="6" cols="46" id="text" name="text">
+	出生年代 Birth: 传说中的1988
+	工作时间 Working Time: 2010.07
+	技术 IT Skills: Java/Web/Hadoop/Nosql/Shell
+	目前工作 Now: RD@JD
+	梦想：只想安静做一个美男子
+	</textarea>
+	</span>
+</form>
 
 <!-- Blog Comments -->
 <div class="media">
@@ -17,3 +26,11 @@ title: "About"
   </script>
   <!-- UY END -->
 </div>
+
+<script src="js/about.js"></script>
+<script type="text/javascript">
+            onload = function () {
+                document.getElementById('about').style['height'] = document.documentElement.clientHeight - document.getElementById('box').offsetHeight - 60 + 'px';
+                mtx.init("about", 800, 150, [255,255,255], [255,64,0], [44,44,44]);
+            }
+</script>
