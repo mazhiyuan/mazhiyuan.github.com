@@ -27,7 +27,7 @@ title: "About"
   <!-- UY END -->
 </div>
 
-<script src="js/about.js"></script>
+<script type="text/javascript" src="js/about.js"></script>
 <script type="text/javascript">
             onload = function () {
                 document.getElementById('about').style['height'] = document.documentElement.clientHeight - document.getElementById('box').offsetHeight - 60 + 'px';
