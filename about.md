@@ -31,6 +31,7 @@ title: "About"
 <script src="js/jquery-1.11.0.js"></script>
 <script type="text/javascript">
             $(document).ready(function(){
+            	alert("sdasd");
                 document.getElementById('about').style['height'] = document.documentElement.clientHeight - document.getElementById('box').offsetHeight - 60 + 'px';
                 mtx.init("about", 800, 150, [255,255,255], [255,64,0], [44,44,44]);
             });
