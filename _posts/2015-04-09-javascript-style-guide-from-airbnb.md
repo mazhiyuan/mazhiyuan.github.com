@@ -26,7 +26,7 @@ category: work
    // good
    var item = {};
   </pre>
-  *不要使用保留字
+  * 不要使用保留字
   <pre class="prettyprint">
   // bad
   var superman = {
@@ -39,7 +39,7 @@ category: work
     hidden: true
   };
   </pre>
-  *使用简单的同义词代替保留字
+  * 使用简单的同义词代替保留字
   <pre class="prettyprint">
   // bad
   var superman = {
@@ -59,7 +59,7 @@ category: work
 * 创建对象
 * 需要复制数组时，使用slice
 * 使用slice将对象转换为数组
-* 
+ 
 
 ####字符串
 * 对字符串使用单引号
