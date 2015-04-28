@@ -14,9 +14,7 @@ category: work
   <pre class="prettyprint">
     var foo = 1;
     var bar = foo;
-
     bar = 9;
-
     console.log(foo, bar); // => 1, 9
   </pre>
 
