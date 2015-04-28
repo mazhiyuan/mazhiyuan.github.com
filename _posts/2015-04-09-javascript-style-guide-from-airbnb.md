@@ -4,6 +4,7 @@ title: JavaScript编码规范 - From Airbnb
 description: 
 category: work
 ---
+<link rel="stylesheet" type="text/css" href="/js/prettify/css/hemisu.css" />
 ####类型
 * 基本类型
   * string
