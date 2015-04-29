@@ -137,13 +137,13 @@ messages = [{
 length = messages.length;
 // bad
 function inbox(messages) {
-  items = '<ul>';
+  items = '\<ul\>';
 
   for (i = 0; i < length; i++) {
-    items += '<li>' + messages[i].message + '</li>';
+    items += '\<li\>' + messages[i].message + '\</li\>';
   }
 
-  return items + '</ul>';
+  return items + '\</ul\>';
 }
 // good
 function inbox(messages) {
@@ -154,7 +154,7 @@ function inbox(messages) {
     items[i] = '<li>' + messages[i].message + '</li>';
   }
 
-  return '<ul>' + items.join('') + '</ul>';
+  return '\<ul\>' + items.join('') + '\</ul\>';
 }
 </pre>
 
@@ -275,55 +275,41 @@ var i;
 function() {
     test();
     console.log('doing stuff..');
-
     //..other stuff..
-
     var name = getName();
-
     if (name === 'test') {
       return false;
     }
-
     return name;
 }
 // good
 function() {
     var name = getName();
-
     test();
     console.log('doing stuff..');
-
     //..other stuff..
-
     if (name === 'test') {
       return false;
     }
-
     return name;
 }
 // bad - unnessary function call
 function() {
     var name = getName();
-
     if (!arguments.length) {
       return false;
     }
-
     this.setFirstName(name);
-
     return true;
 }
 // good
 function() {
     var name;
-
     if (!arguments.length) {
       return false;
     }
-
     name = getName();
     this.setFirstName(name);
-
     return true;
 }
 </pre>
@@ -467,11 +453,63 @@ if (test) {
 }
 </pre>
 
-####注释
+####注释 Comments
 * 多行注释使用/**...*/，需包含一个描述，所有参数的具体类型，值和返回值
+<pre class="prettyprint">
+// bad
+// make() returns a new element
+// based on the passed in tag name
+//
+// @param {String} tag
+// @return {Element} element
+function make(tag) {
+
+    // ...stuff...
+
+    return element;
+}
+// good
+/**
+ * make() returns a new element
+ * based on the passed in tag name
+ *
+ * @param {String} tag
+ * @return {Element} element
+ */
+function make(tag) {
+
+    // ...stuff...
+
+    return element;
+}
+</pre>
 * 单行注释使用//，注释放在语句的上一行，并在注释之前留空行
-* 如果你指出的问题需要重新定位或者提出一个待解决的问题需要实现，给注释添加FIXME or TODO 前缀有利于其他开发者快速理解。这些注释不同于通常的注释，因为它们是可实施的。这些实施措施就是FIXME -- need to figure this out or TODO -- need to implement.
-* 使用//TODO:给问题解决方案作注释
+<pre class="prettyprint">
+// bad
+var active = true;  // is current tab
+// good
+// is current tab
+var active = true;
+// bad
+function getType() {
+    console.log('fetching type...');
+    // set the default type to 'no type'
+    var type = this._type || 'no type';
+
+    return type;
+}
+// good
+function getType() {
+    console.log('fetching type...');
+
+    // set the default type to 'no type'
+    var type = this._type || 'no type';
+
+    return type;
+}
+</pre>
+* 如果你指出的问题需要重新定位或者提出一个待解决的问题需要实现，给注释添加_FIXME or TODO_ 前缀有利于其他开发者快速理解。这些注释不同于通常的注释，因为它们是可实施的。这些实施措施就是_FIXME -- need to figure this out or TODO -- need to implement_
+* 使用_//TODO:_给问题解决方案作注释
 
 ####空白
 * 设置制表符为两个空格
