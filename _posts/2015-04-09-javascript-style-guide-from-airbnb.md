@@ -125,7 +125,7 @@ var messages;
 var length;
 var i;
 messages = [{
-    state: 'success',
+      state: 'success',
     message: 'This one worked.'
 }, {
     state: 'success',
