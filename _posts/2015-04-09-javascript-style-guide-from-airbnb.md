@@ -217,7 +217,7 @@ var luke = {
       age: 28
 };
 function getProp(prop) {
-    return luke[prop];
+      return luke[prop];
 }
 var isJedi = getProp('jedi');
 </pre>
@@ -457,11 +457,11 @@ function make(tag) {
 }
 // good
 /**
- /* make() returns a new element
- /* based on the passed in tag name
- /*
- /* @param {String} tag
- /* @return {Element} element
+ \* make() returns a new element
+ \* based on the passed in tag name
+ \*
+ \* @param {String} tag
+ \* @return {Element} element
  */
 function make(tag) {
       // ...stuff...
@@ -491,22 +491,157 @@ function getType() {
 }
 </pre>
 * 如果你指出的问题需要重新定位或者提出一个待解决的问题需要实现，给注释添加 _FIXME or TODO_ 前缀有利于其他开发者快速理解。这些注释不同于通常的注释，因为它们是可实施的。这些实施措施就是 _FIXME -- need to figure this out or TODO -- need to implement_
+<pre class="prettyprint">
+function Calculator() {
+      // FIXME: shouldn't use a global here
+      total = 0;
+      return this;
+}
+</pre>
 * 使用 _//TODO:_ 给问题解决方案作注释
+<pre class="prettyprint">
+function Calculator() {
+      // TODO: total should be configurable by an options param
+      this.total = 0;
+      return this;
+}
+</pre>
 
-####空白
-* 设置制表符为两个空格
+####空白 Whitespace
+* 设置制表符为两个空格soft tabs
 * 在左大括号前留一个空格
+<pre class="prettyprint">
+// bad
+function test(){
+      console.log('test');
+}
+// good
+function test() {
+      console.log('test');
+}
+// bad
+dog.set('attr',{
+      age: '1 year',
+      breed: 'Bernese Mountain Dog'
+});
+// good
+dog.set('attr', {
+      age: '1 year',
+      breed: 'Bernese Mountain Dog'
+});
+</pre>
 * 在控制语句中（if, while etc），左括号之前留一个空格。函数的参数列表之前不要有空格
+<pre class="prettyprint">
+// bad
+if(isJedi) {
+      fight ();
+}
+// good
+if (isJedi) {
+      fight();
+}
+// bad
+function fight () {
+      console.log ('Swooosh!');
+}
+// good
+function fight() {
+      console.log('Swooosh!');
+}
+</pre>
 * 使用空格分隔运算符
-* 当调用很长的方法链时使用缩进，可以强调这行是方法调用，不是新的语句
+<pre class="prettyprint">
+// bad
+var x=y+5;
+// good
+var x = y + 5;
+</pre>
+* 当调用很长的方法链时使用缩进，可以使用点来强调这行是方法调用，不是新的语句
+<pre class="prettyprint">
+// bad
+$('#items').find('.selected').highlight().end().find('.open').updateCount();
+// bad
+$('#items').
+      find('.selected').
+        highlight().
+      end().
+      find('.open').
+        updateCount();
+// good
+$('#items')
+      .find('.selected')
+        .highlight()
+        .end()
+      .find('.open')
+        .updateCount();
+// bad
+var leds = stage.selectAll('.led').data(data).enter().append('svg:svg').classed('led', true)
+      .attr('width', (radius + margin) * 2).append('svg:g')
+      .attr('transform', 'translate(' + (radius + margin) + ',' + (radius + margin) + ')')
+      .call(tron.led);
+// good
+var leds = stage.selectAll('.led')
+      .data(data)
+      .enter().append('svg:svg')
+      .classed('led', true)
+      .attr('width', (radius + margin) * 2)
+      .append('svg:g')
+      .attr('transform', 'translate(' + (radius + margin) + ',' + (radius + margin) + ')')
+      .call(tron.led);
+</pre>
 * 在语句块和下一个语句之前留一个空行
 
-####逗号
-* 不要再语句前留逗号
+####逗号 Commas
+* 不要在语句前留逗号
+<pre class="prettyprint">
+// bad
+var story = [
+      once
+      , upon
+      , aTime
+];
+// good
+var story = [
+      once,
+      upon,
+      aTime
+];
+// bad
+var hero = {
+      firstName: 'Bob'
+      , lastName: 'Parr'
+      , heroName: 'Mr. Incredible'
+      , superPower: 'strength'
+};
+// good
+var hero = {
+      firstName: 'Bob',
+      lastName: 'Parr',
+      heroName: 'Mr. Incredible',
+      superPower: 'strength'
+};
+</pre>
 * 不要有多余的逗号
 
 ####分号
 * Yup
+<pre class="prettyprint">
+// bad
+(function() {
+      var name = 'Skywalker'
+      return name
+})()
+// good
+(function() {
+      var name = 'Skywalker';
+      return name;
+})();
+// good (guards against the function becoming an argument when two files with IIFEs are concatenated)
+;(function() {
+      var name = 'Skywalker';
+      return name;
+})();
+</pre>
 
 ####类型分配和强制转换
 * 在声明时进行类型转换
