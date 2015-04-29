@@ -78,7 +78,7 @@ category: work
   var i;
   // bad
   for (i = 0; i < len; i++) {
-    itemsCopy[i] = items[i];
+      itemsCopy[i] = items[i];
   }
   // good
   itemsCopy = items.slice();
