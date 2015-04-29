@@ -126,31 +126,31 @@ var length;
 var i;
 messages = [{
       state: 'success',
-    message: 'This one worked.'
+      message: 'This one worked.'
 }, {
-    state: 'success',
-    message: 'This one worked as well.'
+      state: 'success',
+      message: 'This one worked as well.'
 }, {
-    state: 'error',
-    message: 'This one did not work.'
+      state: 'error',
+      message: 'This one did not work.'
 }];
 length = messages.length;
 // bad
 function inbox(messages) {
-    items = 'ul';
-    for (i = 0; i < length; i++) {
-      items += 'li' + messages[i].message + 'li';
-    }
-    return items + 'ul';
+      items = 'ul';
+      for (i = 0; i < length; i++) {
+        items += 'li' + messages[i].message + 'li';
+      }
+      return items + 'ul';
 }
 // good
 function inbox(messages) {
-    items = [];
-    for (i = 0; i < length; i++) {
-      // use direct assignment in this case because we're micro-optimizing.
-      items[i] = 'li' + messages[i].message + 'li';
-    }
-    return 'ul' + items.join('') + 'ul';
+      items = [];
+      for (i = 0; i < length; i++) {
+        // use direct assignment in this case because we're micro-optimizing.
+        items[i] = 'li' + messages[i].message + 'li';
+      }
+      return 'ul' + items.join('') + 'ul';
 }
 </pre>
 
@@ -159,31 +159,31 @@ function inbox(messages) {
 <pre class="prettyprint">
 // anonymous function expression
 var anonymous = function() {
-    return true;
+      return true;
 };
 // named function expression
 var named = function named() {
-    return true;
+      return true;
 };
 // immediately-invoked function expression (IIFE)
 (function() {
-    console.log('Welcome to the Internet. Please follow me.');
+      console.log('Welcome to the Internet. Please follow me.');
 })();
 </pre>
 * 不要再非函数块(if,while)中声明函数
 <pre class="prettyprint">
 // bad
 if (currentUser) {
-    function test() {
-      console.log('Nope.');
-    }
+      function test() {
+        console.log('Nope.');
+      }
 }
 // good
 var test;
 if (currentUser) {
-    test = function test() {
-      console.log('Yup.');
-    };
+      test = function test() {
+        console.log('Yup.');
+      };
 }
 </pre>
 * 不要命名一个参数为arguments，否则它将优先于传递给每个函数作用域中的arguments对象
@@ -202,8 +202,8 @@ function yup(name, options, args) {
 * 使用点表示法访问属性
 <pre class="prettyprint">
 var luke = {
-    jedi: true,
-    age: 28
+      jedi: true,
+      age: 28
 };
 // bad
 var isJedi = luke['jedi'];
@@ -213,8 +213,8 @@ var isJedi = luke.jedi;
 * 用变量访问属性时要使用下标表示法([])
 <pre class="prettyprint">
 var luke = {
-    jedi: true,
-    age: 28
+      jedi: true,
+      age: 28
 };
 function getProp(prop) {
     return luke[prop];
@@ -269,44 +269,44 @@ var i;
 <pre class="prettyprint">
 // bad
 function() {
-    test();
-    console.log('doing stuff..');
-    //..other stuff..
-    var name = getName();
-    if (name === 'test') {
-      return false;
-    }
-    return name;
+      test();
+      console.log('doing stuff..');
+      //..other stuff..
+      var name = getName();
+      if (name === 'test') {
+        return false;
+      }
+      return name;
 }
 // good
 function() {
-    var name = getName();
-    test();
-    console.log('doing stuff..');
-    //..other stuff..
-    if (name === 'test') {
-      return false;
-    }
-    return name;
+      var name = getName();
+      test();
+      console.log('doing stuff..');
+      //..other stuff..
+      if (name === 'test') {
+        return false;
+      }
+      return name;
 }
 // bad - unnessary function call
 function() {
-    var name = getName();
-    if (!arguments.length) {
-      return false;
-    }
-    this.setFirstName(name);
-    return true;
+      var name = getName();
+      if (!arguments.length) {
+        return false;
+      }
+      this.setFirstName(name);
+      return true;
 }
 // good
 function() {
-    var name;
-    if (!arguments.length) {
-      return false;
-    }
-    name = getName();
-    this.setFirstName(name);
-    return true;
+      var name;
+      if (!arguments.length) {
+        return false;
+      }
+      name = getName();
+      this.setFirstName(name);
+      return true;
 }
 </pre>
  
@@ -317,23 +317,23 @@ Variable declarations get hoisted to the top of their scope, but their assignmen
 // we know this wouldn't work (assuming there
 // is no notDefined global variable)
 function example() {
-    console.log(notDefined); // => throws a ReferenceError
+      console.log(notDefined); // => throws a ReferenceError
 }
 // creating a variable declaration after you
 // reference the variable will work due to
 // variable hoisting. Note: the assignment
 // value of `true` is not hoisted.
 function example() {
-    console.log(declaredButNotAssigned); // => undefined
-    var declaredButNotAssigned = true;
+      console.log(declaredButNotAssigned); // => undefined
+      var declaredButNotAssigned = true;
 }
 // The interpreter is hoisting the variable
 // declaration to the top of the scope,
 // which means our example could be rewritten as:
 function example() {
-    var declaredButNotAssigned;
-    console.log(declaredButNotAssigned); // => undefined
-    declaredButNotAssigned = true;
+      var declaredButNotAssigned;
+      console.log(declaredButNotAssigned); // => undefined
+      declaredButNotAssigned = true;
 }
 </pre>
 * 匿名表达式可以提升变量，但不能提升函数
@@ -341,39 +341,32 @@ Anonymous function expressions hoist their variable name, but not the function a
 * 命名表达式会提升变量，而不是函数名或者函数体
 <pre class="prettyprint">
 function example() {
-    console.log(anonymous); // => undefined
-
-    anonymous(); // => TypeError anonymous is not a function
-
-    var anonymous = function() {
-      console.log('anonymous function expression');
-    };
+      console.log(anonymous); // => undefined
+      anonymous(); // => TypeError anonymous is not a function
+      var anonymous = function() {
+        console.log('anonymous function expression');
+      };
 }
 </pre>
 * 函数声明会提升变量和函数
 Named function expressions hoist the variable name, not the function name or the function body.Function declarations hoist their name and the function body.
 <pre class="prettyprint">
 function example() {
-    console.log(named); // => undefined
-
-    named(); // => TypeError named is not a function
-
-    superPower(); // => ReferenceError superPower is not defined
-
-    var named = function superPower() {
-      console.log('Flying');
-    };
+      console.log(named); // => undefined
+      named(); // => TypeError named is not a function
+      superPower(); // => ReferenceError superPower is not defined
+      var named = function superPower() {
+        console.log('Flying');
+      };
 }
 // the same is true when the function name
 // is the same as the variable name.
 function example() {
-    console.log(named); // => undefined
-
-    named(); // => TypeError named is not a function
-
-    var named = function named() {
-      console.log('named');
-    }
+      console.log(named); // => undefined
+      named(); // => TypeError named is not a function
+      var named = function named() {
+        console.log('named');
+      }
 }
 </pre>
 
@@ -416,36 +409,36 @@ if (collection.length) {
 <pre class="prettyprint">
 // bad
 if (test)
-    return false;
+      return false;
 // good
 if (test) return false;
 // good
 if (test) {
-    return false;
+      return false;
 }
 // bad
 function() { return false; }
 // good
 function() {
-    return false;
+      return false;
 }
 </pre>
 * 对于if-else语句块，把if的右括号和else的左括号放在同一行
 <pre class="prettyprint">
 // bad
 if (test) {
-    thing1();
-    thing2();
+      thing1();
+      thing2();
 }
 else {
-    thing3();
+      thing3();
 }
 // good
 if (test) {
-    thing1();
-    thing2();
+      thing1();
+      thing2();
 } else {
-    thing3();
+      thing3();
 }
 </pre>
 
@@ -459,24 +452,20 @@ if (test) {
 // @param {String} tag
 // @return {Element} element
 function make(tag) {
-
     // ...stuff...
-
-    return element;
+      return element;
 }
 // good
 /**
- * make() returns a new element
- * based on the passed in tag name
- *
- * @param {String} tag
- * @return {Element} element
+ /* make() returns a new element
+ /* based on the passed in tag name
+ /*
+ /* @param {String} tag
+ /* @return {Element} element
  */
 function make(tag) {
-
-    // ...stuff...
-
-    return element;
+      // ...stuff...
+      return element;
 }
 </pre>
 * 单行注释使用//，注释放在语句的上一行，并在注释之前留空行
@@ -488,24 +477,21 @@ var active = true;  // is current tab
 var active = true;
 // bad
 function getType() {
-    console.log('fetching type...');
-    // set the default type to 'no type'
-    var type = this._type || 'no type';
-
-    return type;
+      console.log('fetching type...');
+      // set the default type to 'no type'
+      var type = this._type || 'no type';
+      return type;
 }
 // good
 function getType() {
-    console.log('fetching type...');
-
-    // set the default type to 'no type'
-    var type = this._type || 'no type';
-
-    return type;
+      console.log('fetching type...');
+      // set the default type to 'no type'
+      var type = this._type || 'no type';
+      return type;
 }
 </pre>
-* 如果你指出的问题需要重新定位或者提出一个待解决的问题需要实现，给注释添加_FIXME or TODO_ 前缀有利于其他开发者快速理解。这些注释不同于通常的注释，因为它们是可实施的。这些实施措施就是_FIXME -- need to figure this out or TODO -- need to implement_
-* 使用_//TODO:_给问题解决方案作注释
+* 如果你指出的问题需要重新定位或者提出一个待解决的问题需要实现，给注释添加 _FIXME or TODO_ 前缀有利于其他开发者快速理解。这些注释不同于通常的注释，因为它们是可实施的。这些实施措施就是 _FIXME -- need to figure this out or TODO -- need to implement_
+* 使用 _//TODO:_ 给问题解决方案作注释
 
 ####空白
 * 设置制表符为两个空格
