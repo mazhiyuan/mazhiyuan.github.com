@@ -18,7 +18,7 @@ category: work
     bar = 9;
     console.log(foo, bar); // => 1, 9
   </pre>
-* 复合类型
+* 复合类型 Objects
   * 创建对象，使用literal syntax
   <pre class="prettyprint">
    // bad
@@ -26,7 +26,7 @@ category: work
    // good
    var item = {};
   </pre>
-  * 不要使用保留字
+  * 不要使用保留字reserved words
   <pre class="prettyprint">
   // bad
   var superman = {
@@ -54,8 +54,8 @@ category: work
     type: 'alien'
   };
   </pre>
-
-####数组
+ 
+####数组 Arrays
 * 创建对象，使用literal syntax
   <pre class="prettyprint">
   // bad
@@ -86,39 +86,316 @@ category: work
 * 使用slice将对象转换为数组
 <pre class="prettyprint">
 function trigger() {
-  var args = Array.prototype.slice.call(arguments);
-  ...
+    var args = Array.prototype.slice.call(arguments);
+    ...
 }
 </pre> 
 
-####字符串
+####字符串 Strings
 * 对字符串使用单引号
+<pre class="prettyprint">
+// bad
+var name = "Bob Parr";
+// good
+var name = 'Bob Parr';
+// bad
+var fullName = "Bob " + this.lastName;
+// good
+var fullName = 'Bob ' + this.lastName;
+</pre>
 * 超过80个字符的字符串应该使用字符串连接符进行跨行
   Notice：对长字符串过度使用连接符将会影响性能
+<pre class="prettyprint">
+// bad
+var errorMessage = 'This is a super long error that was thrown because of Batman. When you stop to think about how Batman had anything to do with this, you would get nowhere fast.';
+// bad
+var errorMessage = 'This is a super long error that was thrown because \
+of Batman. When you stop to think about how Batman had anything to do \
+with this, you would get nowhere \
+fast.';
+// good
+var errorMessage = 'This is a super long error that was thrown because ' +
+  'of Batman. When you stop to think about how Batman had anything to do ' +
+  'with this, you would get nowhere fast.';
+</pre>
 * 以编程方式创建字符串的时应该使用Array的join方法而不是通过连接符，尤其是在IE中
+<pre class="prettyprint">
+var items;
+var messages;
+var length;
+var i;
+messages = [{
+  state: 'success',
+  message: 'This one worked.'
+}, {
+  state: 'success',
+  message: 'This one worked as well.'
+}, {
+  state: 'error',
+  message: 'This one did not work.'
+}];
+length = messages.length;
+// bad
+function inbox(messages) {
+  items = '<ul>';
 
-####函数
+  for (i = 0; i < length; i++) {
+    items += '<li>' + messages[i].message + '</li>';
+  }
+
+  return items + '</ul>';
+}
+// good
+function inbox(messages) {
+  items = [];
+
+  for (i = 0; i < length; i++) {
+    // use direct assignment in this case because we're micro-optimizing.
+    items[i] = '<li>' + messages[i].message + '</li>';
+  }
+
+  return '<ul>' + items.join('') + '</ul>';
+}
+</pre>
+
+####函数 Functions
 * 函数表达式
+<pre class="prettyprint">
+// anonymous function expression
+var anonymous = function() {
+    return true;
+};
+// named function expression
+var named = function named() {
+    return true;
+};
+// immediately-invoked function expression (IIFE)
+(function() {
+    console.log('Welcome to the Internet. Please follow me.');
+})();
+</pre>
 * 不要再非函数块(if,while)中声明函数
+<pre class="prettyprint">
+// bad
+if (currentUser) {
+    function test() {
+      console.log('Nope.');
+    }
+}
+// good
+var test;
+if (currentUser) {
+    test = function test() {
+      console.log('Yup.');
+    };
+}
+</pre>
 * 不要命名一个参数为arguments，否则它将优先于传递给每个函数作用域中的arguments对象
+<pre class="prettyprint">
+// bad
+function nope(name, options, arguments) {
+    // ...stuff...
+}
+// good
+function yup(name, options, args) {
+    // ...stuff...
+}
+</pre>
 
-####属性
+####属性 Properties
 * 使用点表示法访问属性
+<pre class="prettyprint">
+var luke = {
+    jedi: true,
+    age: 28
+};
+// bad
+var isJedi = luke['jedi'];
+// good
+var isJedi = luke.jedi;
+</pre>
 * 用变量访问属性时要使用下标表示法([])
+<pre class="prettyprint">
+var luke = {
+    jedi: true,
+    age: 28
+};
+function getProp(prop) {
+    return luke[prop];
+}
+var isJedi = getProp('jedi');
+</pre>
 
-####变量
+####变量 Variables
 * 总是使用var声明变量，不然其将变为全局变量。我们要想办法避免全局空间污染
+<pre class="prettyprint">
+// bad
+superPower = new SuperPower();
+// good
+var superPower = new SuperPower();
+</pre>
 * 使用var声明每个变量，这样很容易添加新的变量声明
-* 最后声明未赋值的变量，这对于你需要根据之前已经赋值的变量对一个变量进行赋值时是很有帮助的
+<pre class="prettyprint">
+// bad
+var items = getItems(),
+    goSportsTeam = true,
+    dragonball = 'z';
+// bad
+// (compare to above, and try to spot the mistake)
+var items = getItems(),
+    goSportsTeam = true;
+    dragonball = 'z';
+// good
+var items = getItems();
+var goSportsTeam = true;
+var dragonball = 'z';
+</pre>
+* 最后声明未赋值的变量，这对于你需要根据之前已经赋值的变量对其他变量进行赋值时是很有帮助的
+<pre class="prettyprint">
+// bad
+var i, len, dragonball,
+    items = getItems(),
+    goSportsTeam = true;
+// bad
+var i;
+var items = getItems();
+var dragonball;
+var goSportsTeam = true;
+var len;
+// good
+var items = getItems();
+var goSportsTeam = true;
+var dragonball;
+var length;
+var i;
+</pre>
 * 在作用域顶端对变量赋值
+<pre class="prettyprint">
+// bad
+function() {
+    test();
+    console.log('doing stuff..');
 
-####声明
+    //..other stuff..
+
+    var name = getName();
+
+    if (name === 'test') {
+      return false;
+    }
+
+    return name;
+}
+// good
+function() {
+    var name = getName();
+
+    test();
+    console.log('doing stuff..');
+
+    //..other stuff..
+
+    if (name === 'test') {
+      return false;
+    }
+
+    return name;
+}
+// bad - unnessary function call
+function() {
+    var name = getName();
+
+    if (!arguments.length) {
+      return false;
+    }
+
+    this.setFirstName(name);
+
+    return true;
+}
+// good
+function() {
+    var name;
+
+    if (!arguments.length) {
+      return false;
+    }
+
+    name = getName();
+    this.setFirstName(name);
+
+    return true;
+}
+</pre>
+ 
+####声明 Hoisting
 * 变量声明是在作用域顶端，但并未赋值
+Variable declarations get hoisted to the top of their scope, but their assignment does not.
+<pre class="prettyprint">
+// we know this wouldn't work (assuming there
+// is no notDefined global variable)
+function example() {
+    console.log(notDefined); // => throws a ReferenceError
+}
+// creating a variable declaration after you
+// reference the variable will work due to
+// variable hoisting. Note: the assignment
+// value of `true` is not hoisted.
+function example() {
+    console.log(declaredButNotAssigned); // => undefined
+    var declaredButNotAssigned = true;
+}
+// The interpreter is hoisting the variable
+// declaration to the top of the scope,
+// which means our example could be rewritten as:
+function example() {
+    var declaredButNotAssigned;
+    console.log(declaredButNotAssigned); // => undefined
+    declaredButNotAssigned = true;
+}
+</pre>
 * 匿名表达式可以提升变量，但不能提升函数
+Anonymous function expressions hoist their variable name, but not the function assignment.
 * 命名表达式会提升变量，而不是函数名或者函数体
-* 函数声明会提升变量和函数
+<pre class="prettyprint">
+function example() {
+    console.log(anonymous); // => undefined
 
-####运算符
+    anonymous(); // => TypeError anonymous is not a function
+
+    var anonymous = function() {
+      console.log('anonymous function expression');
+    };
+}
+</pre>
+* 函数声明会提升变量和函数
+Named function expressions hoist the variable name, not the function name or the function body.Function declarations hoist their name and the function body.
+<pre class="prettyprint">
+function example() {
+    console.log(named); // => undefined
+
+    named(); // => TypeError named is not a function
+
+    superPower(); // => ReferenceError superPower is not defined
+
+    var named = function superPower() {
+      console.log('Flying');
+    };
+}
+// the same is true when the function name
+// is the same as the variable name.
+function example() {
+    console.log(named); // => undefined
+
+    named(); // => TypeError named is not a function
+
+    var named = function named() {
+      console.log('named');
+    }
+}
+</pre>
+
+####运算符 Comparison Operators & Equality
 * 使用===和!==代替==和!=
 * 比较运算符进行计算时会利用ToBoolean方法进行强制转换数据类型，并遵从以下规则
   * Objects的计算值是true
@@ -126,10 +403,69 @@ function trigger() {
   * Boolean的计算值是本身
   * Numbers如果是-0,+0或者NaN，则计算值是false反之是true
   * Strings如果是空，则计算值是false，反之是true
+<pre class="prettyprint">
+if ([0]) {
+    // true
+    // An array is an object, objects evaluate to true
+}
+</pre>
+  * Tips
+<pre class="prettyprint">
+// bad
+if (name !== '') {
+    // ...stuff...
+}
+// good
+if (name) {
+    // ...stuff...
+}
+// bad
+if (collection.length > 0) {
+    // ...stuff...
+}
+// good
+if (collection.length) {
+    // ...stuff...
+}
+</pre>
 
-####语句块
-* 对多行语句块使用大括号
+####语句块 Blocks
+* 对多行语句块使用大括号brace
+<pre class="prettyprint">
+// bad
+if (test)
+    return false;
+// good
+if (test) return false;
+// good
+if (test) {
+    return false;
+}
+// bad
+function() { return false; }
+// good
+function() {
+    return false;
+}
+</pre>
 * 对于if-else语句块，把if的右括号和else的左括号放在同一行
+<pre class="prettyprint">
+// bad
+if (test) {
+    thing1();
+    thing2();
+}
+else {
+    thing3();
+}
+// good
+if (test) {
+    thing1();
+    thing2();
+} else {
+    thing3();
+}
+</pre>
 
 ####注释
 * 多行注释使用/**...*/，需包含一个描述，所有参数的具体类型，值和返回值
