@@ -623,7 +623,7 @@ var hero = {
 </pre>
 * 不要有多余的逗号
 
-####分号
+####分号 Semicolons
 * Yup
 <pre class="prettyprint">
 // bad
@@ -643,44 +643,324 @@ var hero = {
 })();
 </pre>
 
-####类型分配和强制转换
+####类型分配和强制转换  Type casting &　Coercion
 * 在声明时进行类型转换
 * Strings
+<pre class="prettyprint">
+//  => this.reviewScore = 9;
+// bad
+var totalScore = this.reviewScore + '';
+// good
+var totalScore = '' + this.reviewScore;
+// bad
+var totalScore = '' + this.reviewScore + ' total score';
+// good
+var totalScore = this.reviewScore + ' total score';
+</pre>
 * 使用parseInt对Numbers进行转换，不要省略进制参数
+<pre class="prettyprint">
+var inputValue = '4';
+// bad
+var val = new Number(inputValue);
+// bad
+var val = +inputValue;
+// bad
+var val = inputValue >> 0;
+// bad
+var val = parseInt(inputValue);
+// good
+var val = Number(inputValue);
+// good
+var val = parseInt(inputValue, 10);
+</pre>
 * 无论出于什么原因，或许你做了一些”粗野”的事；或许parseInt成了你的瓶颈；或许考虑到性能，需要使用位运算，都要用注释说明你为什么这么做
-* 注意：当使用位运算时，Numbers被视为64位值，但是位运算总是返回32位整型(source)。对于整型值大于32位的进行位运算将导致不可预见的行为。最大的有符号32位整数是2,147,483,647
+<pre class="prettyprint">
+// good
+/**
+ \* parseInt was the reason my code was slow.
+ \* Bitshifting the String to coerce it to a
+ \* Number made it a lot faster.
+ */
+var val = inputValue >> 0;
+</pre>
+* 注意：当使用位运算bitshift时，Numbers被视为64位的值，但是位运算总是返回32位整型。对于整型值大于32位的进行位运算将导致不可预见的行为。最大的有符号32位整数是2,147,483,647
+<pre class="prettyprint">
+2147483647 >> 0 //=> 2147483647
+2147483648 >> 0 //=> -2147483648
+2147483649 >> 0 //=> -2147483647
+</pre>
 * Booleans
+<pre class="prettyprint">
+var age = 0;
+// bad
+var hasAge = new Boolean(age);
+// good
+var hasAge = Boolean(age);
+// good
+var hasAge = !!age;
+</pre>
 
 ####命名规范
 * 避免单字母名称，使其具有描述性
+<pre class="prettyprint">
+// bad
+function q() {
+      // ...stuff...
+}
+// good
+function query() {
+      // ..stuff..
+}
+</pre>
 * 使用驼峰法命名变量、函数和类名
-* 命名私有属性时使用前置下划线
+<pre class="prettyprint">
+// bad
+var OBJEcttsssss = {};
+var this_is_my_object = {};
+var o = {};
+function c() {}
+// good
+var thisIsMyObject = {};
+function thisIsMyFunction() {}
+</pre>
+* 命名私有属性时使用前置下划线underscore 
+<pre class="prettyprint">
+// bad
+this.__firstName__ = 'Panda';
+this.firstName_ = 'Panda';
+// good
+this._firstName = 'Panda';
+</pre>
 * this引用使用_this变量
+<pre class="prettyprint">
+// bad
+function() {
+      var self = this;
+      return function() {
+        console.log(self);
+      };
+}
+// bad
+function() {
+      var that = this;
+      return function() {
+        console.log(that);
+      };
+}
+// good
+function() {
+      var _this = this;
+      return function() {
+        console.log(_this);
+      };
+}
+</pre>
 * 命名函数时，下面方式有利于堆栈跟踪
-* 如果文件作为一个类被导出，文件名应该和类名保持一致
+<pre class="prettyprint">
+// bad
+var log = function(msg) {
+      console.log(msg);
+};
+// good
+var log = function log(msg) {
+      console.log(msg);
+};
+</pre>
+* 如果文件单独包含一个类，文件名应该和类名保持一致
+<pre class="prettyprint">
+// file contents
+class CheckBox {
+      // ...
+}
+module.exports = CheckBox;
+// in some other file
+// bad
+var CheckBox = require('./checkBox');
+// bad
+var CheckBox = require('./check_box');
+// good
+var CheckBox = require('./CheckBox');
+</pre>
 
-####存取器
+####存取器 Accessors
 * 对于属性，访问器函数不是必须的
 * 如果定义了存取器函数，应参照 getVal() 和 setVal('hello') 格式
+<pre class="prettyprint">
+// bad
+dragon.age();
+// good
+dragon.getAge();
+// bad
+dragon.age(25);
+// good
+dragon.setAge(25);
+</pre>
 * 如果属性是boolean，格式应为 isVal() 和 hasVal()
+<pre class="prettyprint">
+// bad
+if (!dragon.age()) {
+      return false;
+}
+// good
+if (!dragon.hasAge()) {
+      return false;
+}
+</pre>
 * 创建形式一致的 get() 和 set() 方法
+<pre class="prettyprint">
+function Jedi(options) {
+      options || (options = {});
+      var lightsaber = options.lightsaber || 'blue';
+      this.set('lightsaber', lightsaber);
+}
+Jedi.prototype.set = function(key, val) {
+      this[key] = val;
+};
+Jedi.prototype.get = function(key) {
+      return this[key];
+};
+</pre>
 
-####构造函数
-* 在原型对象上定义方法，而不要重写。重写使继承不可用，因为重写原型导致重写整个基类
+####构造函数 Constructors
+* 在原型对象上定义assign方法，而不要重写overwrite。重写使继承inheritance不可用，因为重写原型导致重写整个基类
+<pre class="prettyprint">
+function Jedi() {
+      console.log('new jedi');
+}
+// bad
+Jedi.prototype = {
+      fight: function fight() {
+        console.log('fighting');
+      },
+      block: function block() {
+        console.log('blocking');
+      }
+};
+// good
+Jedi.prototype.fight = function fight() {
+      console.log('fighting');
+};
+Jedi.prototype.block = function block() {
+      console.log('blocking');
+};
+</pre>
 * 返回this指针可以构建方法链
+<pre class="prettyprint">
+// bad
+Jedi.prototype.jump = function() {
+      this.jumping = true;
+      return true;
+};
+Jedi.prototype.setHeight = function(height) {
+      this.height = height;
+};
+var luke = new Jedi();
+luke.jump(); // => true
+luke.setHeight(20); // => undefined
+// good
+Jedi.prototype.jump = function() {
+      this.jumping = true;
+      return this;
+};
+Jedi.prototype.setHeight = function(height) {
+      this.height = height;
+      return this;
+};
+var luke = new Jedi();
+luke.jump()
+      .setHeight(20);
+</pre>
 * 写一个自定义的toString()方法是可以的，只要确保它能正常运行并且不会产生副作用
+<pre class="prettyprint">
+function Jedi(options) {
+      options || (options = {});
+      this.name = options.name || 'no name';
+}
+Jedi.prototype.getName = function getName() {
+      return this.name;
+};
+Jedi.prototype.toString = function toString() {
+      return 'Jedi - ' + this.getName();
+};
+</pre>
 
-####事件
-* 当在事件对象上附加数据时（无论是DOM事件还是如Backbone一样拥有的私有事件），应传递hash对象而不是原始值，这可以让随后的贡献者给事件对象添加更多的数据，而不必去查找或者更新每一个事件处理程序。举个例子，不要用下面的方式：
+####事件 Events
+* 当在事件对象上附加数据时（无论是DOM事件还是如Backbone一样拥有的私有事件），应传递hash对象而不是原始值，这可以让随后的贡献者给事件对象添加更多的数据，而不必去查找或者更新每一个事件处理程序。
+<pre class="prettyprint">
+// bad
+$(this).trigger('listingUpdated', listing.id);
+...
+$(this).on('listingUpdated', function(e, listingId) {
+      // do something with listingId
+});
+// good
+$(this).trigger('listingUpdated', { listingId : listing.id });
+...
+$(this).on('listingUpdated', function(e, data) {
+      // do something with data.listingId
+});
+</pre>
 
-####模块
+####模块 Modules
 * 模块应该以 ! 开始，这能确保当脚本连接时，如果畸形模块忘记导入，包括最后一个分号，不会产生错误。
-* 文件应该以驼峰式命名，放在同名的文件夹中，和单出口的名称相匹配
+* 文件应该以驼峰式命名，放在同名的文件夹中，和唯一出口的名称相匹配
 * 定义一个noConflict()方法来设置导出模块之前的版本,并返回当前版本。
 * 在模块的顶部申明’use strict';
+<pre class="prettyprint">
+// fancyInput/fancyInput.js
+!function(global) {
+      'use strict';
+      var previousFancyInput = global.FancyInput;
+      function FancyInput(options) {
+        this.options = options || {};
+      }
+      FancyInput.noConflict = function noConflict() {
+        global.FancyInput = previousFancyInput;
+        return FancyInput;
+      };
+      global.FancyInput = FancyInput;
+}(this);
+</pre>
 
 ####JQuery
 * jQuery对象变量使用前缀$
-* 缓存jQuery查询
-* 使用级联$('.sidebar ul')或父子$('.sidebar > ul')选择器进行DOM查询
+<pre class="prettyprint">
+// bad
+var sidebar = $('.sidebar');
+// good
+var $sidebar = $('.sidebar');
+</pre>
+* 缓存jQuery对象
+<pre class="prettyprint">
+// bad
+function setSidebar() {
+      $('.sidebar').hide();
+      // ...stuff...
+      $('.sidebar').css({
+        'background-color': 'pink'
+      });
+}
+// good
+function setSidebar() {
+      var $sidebar = $('.sidebar');
+      $sidebar.hide();
+      // ...stuff...
+      $sidebar.css({
+        'background-color': 'pink'
+      });
+}
+</pre>
+* 使用级联cascading $('.sidebar ul')或父子$('.sidebar > ul')选择器进行DOM查询
 * 在范围内使用find进行jQuery对象查询
+<pre class="prettyprint">
+// bad
+$('ul', '.sidebar').hide();
+// bad
+$('.sidebar').find('ul').hide();
+// good
+$('.sidebar ul').hide();
+// good
+$('.sidebar > ul').hide();
+// good
+$sidebar.find('ul').hide();
+</pre>
