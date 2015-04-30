@@ -966,4 +966,4 @@ $sidebar.find('ul').hide();
 </pre>
 
 
-_原文链接:https://github.com/airbnb/javascript_
+[原文链接](https://github.com/airbnb/javascript)
