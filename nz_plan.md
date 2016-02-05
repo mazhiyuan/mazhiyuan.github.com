@@ -10,14 +10,15 @@ title: "NZ Plan"
 3.  保证金 DEPOSIT ***Update 2014-10-10 150K RMB***
 4.  SFV  ***Update 2014-11-20***
 5.  IELTS ***Update 2014-10-25 6 2015-01-10 6.5***  
-6.  SFV下签
-7.  临行前的准备
-8.  总结
+6.  SFV下签  ***Update 2015-02-05***  
+7.  临行前的准备  ***Update 2015-07-25***  
 
 新西兰部分 IN NEW ZEALAND
 
-1. PR
-2. 家人团聚
+1. Job OFFER  ***Update 2015-11-18***  
+2. EOI  ***Update 2015-11-24***  
+  2.1 SELECTED   ***Update 2015-11-25***  
+  2.2 ITA  ***Update 2016-01-18***  
 
 
 
